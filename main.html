@@ -6,7 +6,6 @@
     <meta name="format-detection" content="telephone=yes">
     <title>Novelopedia - Second-hand Novel Marketplace</title>
     <style>
-        /* ... (Your existing CSS styles remain the same) ... */
         :root {
             --primary: #2a3b4c;
             --secondary: #f4a261;
@@ -16,7 +15,478 @@
             --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
         
-        /* ... (Your existing CSS styles remain the same) ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-bar input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background: var(--secondary);
+            border: none;
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .search-bar button:hover {
+            background: var(--accent);
+        }
+        
+        .hero {
+            background-color: #2a3b4c;
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .featured-section {
+            padding: 2rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--secondary);
+            margin: 0.5rem auto;
+        }
+        
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 2rem;
+        }
+        
+        .book-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .book-img {
+            height: 280px;
+            width: 100%;
+            background-color: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #adb5bd;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 10px;
+        }
+        
+        .book-details {
+            padding: 1rem;
+        }
+        
+        .book-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .book-author {
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+        
+        .book-price {
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+        
+        .book-condition {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .categories-section {
+            padding: 2rem 0;
+            background-color: #e9ecef;
+        }
+        
+        .category-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .category-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            background: var(--secondary);
+            color: white;
+        }
+        
+        .testimonials {
+            padding: 3rem 0;
+        }
+        
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .testimonial-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 4rem;
+            color: #e9ecef;
+            z-index: 1;
+        }
+        
+        .testimonial-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .testimonial-text {
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+        }
+        
+        .how-it-works {
+            padding: 2rem 0;
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--secondary);
+            border-radius: 50%;
+            line-height: 50px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        .contact-icon {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: transform 0.3s, background 0.3s;
+            box-shadow: var(--shadow);
+        }
+        
+        .contact-button:hover {
+            transform: scale(1.1);
+            background: var(--secondary);
+        }
+        
+        .disclaimer {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .cta-section {
+            padding: 4rem 0;
+            text-align: center;
+            background-color: #e9ecef;
+        }
+        
+        .cta-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 2px;
+            background: var(--secondary);
+            margin-top: 0.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--secondary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #343a40;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #343a40;
+            color: #adb5bd;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .search-bar {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
     </style>
     <script>
         // Script to ensure phone dialer opens properly
@@ -40,46 +510,6 @@
                 alert("Please call " + phoneNumber);
             }
         }
-
-        // Fetch book data from Google Sheets and display available books
-        function fetchAndDisplayBooks() {
-            const sheetUrl = 'https://spreadsheets.google.com/feeds/list/1W5FBlQShUosUSz8ByttW87gzVCoXy3gfEjGhpznDTuM/1/public/values?alt=json';
-
-            fetch(sheetUrl)
-                .then(response => response.json())
-                .then(data => {
-                    const entries = data.feed.entry;
-                    const bookGrid = document.querySelector('.book-grid');
-                    bookGrid.innerHTML = ''; // Clear existing content
-
-                    entries.forEach(entry => {
-                        const title = entry.gsx$title.$t;
-                        const author = entry.gsx$author.$t;
-                        const condition = entry.gsx$condition.$t;
-                        const price = entry.gsx$price.$t;
-                        const available = entry.gsx$available.$t.toLowerCase();
-
-                        if (available === 'yes') {
-                            const bookCard = document.createElement('div');
-                            bookCard.classList.add('book-card');
-                            bookCard.innerHTML = `
-                                <div class="book-img">${title}<br>Book Cover</div>
-                                <div class="book-details">
-                                    <div class="book-title">${title}</div>
-                                    <div class="book-author">${author}</div>
-                                    <div class="book-condition">${condition}</div>
-                                    <div class="book-price">${price}</div>
-                                    <button class="btn">Add to Cart</button>
-                                </div>
-                            `;
-                            bookGrid.appendChild(bookCard);
-                        }
-                    });
-                })
-                .catch(error => console.error('Error fetching book data:', error));
-        }
-
-        document.addEventListener('DOMContentLoaded', fetchAndDisplayBooks); // Load books on page load
     </script>
 </head>
 <body>
@@ -124,7 +554,47 @@
                 <h2>Featured Books</h2>
             </div>
             <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-img">To Kill a Mockingbird<br>Book Cover</div>
+                    <div class="book-details">
+                        <div class="book-title">To Kill a Mockingbird</div>
+                        <div class="book-author">Harper Lee</div>
+                        <div class="book-condition">Like New</div>
+                        <div class="book-price">$8.50</div>
+                        <button class="btn">Add to Cart</button>
+                    </div>
                 </div>
+                <div class="book-card">
+                    <div class="book-img">1984<br>Book Cover</div>
+                    <div class="book-details">
+                        <div class="book-title">1984</div>
+                        <div class="book-author">George Orwell</div>
+                        <div class="book-condition">Good</div>
+                        <div class="book-price">$7.25</div>
+                        <button class="btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-img">Pride and Prejudice<br>Book Cover</div>
+                    <div class="book-details">
+                        <div class="book-title">Pride and Prejudice</div>
+                        <div class="book-author">Jane Austen</div>
+                        <div class="book-condition">Very Good</div>
+                        <div class="book-price">$6.99</div>
+                        <button class="btn">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-img">The Great Gatsby<br>Book Cover</div>
+                    <div class="book-details">
+                        <div class="book-title">The Great Gatsby</div>
+                        <div class="book-author">F. Scott Fitzgerald</div>
+                        <div class="book-condition">Acceptable</div>
+                        <div class="book-price">$5.50</div>
+                        <button class="btn">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
     
@@ -151,6 +621,7 @@
             </div>
             
             <div class="contact-icon">
+                <!-- Updated call button with enhanced functionality -->
                 <a href="javascript:void(0);" onclick="makePhoneCall('+919987151663');" class="contact-button">📞</a>
             </div>
             
@@ -246,6 +717,7 @@
                 <div class="footer-column">
                     <h3>Customer Service</h3>
                     <ul class="footer-links">
+                        <!-- Updated contact link with enhanced functionality -->
                         <li><a href="javascript:void(0);" onclick="makePhoneCall('+919987151663');">Contact Us</a></li>
                         <li><a href="#">FAQ</a></li>
                         <li><a href="#">Shipping Policy</a></li>
