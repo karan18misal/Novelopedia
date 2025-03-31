@@ -1,1 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=yes">
+    <title>Novelopedia - Second-hand Novel Marketplace</title>
+    <style>
+        /* ... (Your existing CSS styles remain the same) ... */
+        :root {
+            --primary: #2a3b4c;
+            --secondary: #f4a261;
+            --accent: #e76f51;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ... (Your existing CSS styles remain the same) ... */
+    </style>
+    <script>
+        // Script to ensure phone dialer opens properly
+        function makePhoneCall(phoneNumber) {
+            // Try multiple approaches to maximize compatibility
+            try {
+                // Standard approach
+                window.location.href = 'tel:' + phoneNumber;
+                
+                // Fallback for some mobile browsers
+                setTimeout(function() {
+                    var a = document.createElement('a');
+                    a.href = 'tel:' + phoneNumber;
+                    a.setAttribute('target', '_system');
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, 100);
+            } catch(e) {
+                console.error("Error making phone call: ", e);
+                alert("Please call " + phoneNumber);
+            }
+        }
+
+        // Fetch book data from Google Sheets and display available books
+        function fetchAndDisplayBooks() {
+            const sheetUrl = 'https://spreadsheets.google.com/feeds/list/1W5FBlQShUosUSz8ByttW87gzVCoXy3gfEjGhpznDTuM/1/public/values?alt=json';
+
+            fetch(sheetUrl)
+                .then(response => response.json())
+                .then(data => {
+                    const entries = data.feed.entry;
+                    const bookGrid = document.querySelector('.book-grid');
+                    bookGrid.innerHTML = ''; // Clear existing content
+
+                    entries.forEach(entry => {
+                        const title = entry.gsx$title.$t;
+                        const author = entry.gsx$author.$t;
+                        const condition = entry.gsx$condition.$t;
+                        const price = entry.gsx$price.$t;
+                        const available = entry.gsx$available.$t.toLowerCase();
+
+                        if (available === 'yes') {
+                            const bookCard = document.createElement('div');
+                            bookCard.classList.add('book-card');
+                            bookCard.innerHTML = `
+                                <div class="book-img">${title}<br>Book Cover</div>
+                                <div class="book-details">
+                                    <div class="book-title">${title}</div>
+                                    <div class="book-author">${author}</div>
+                                    <div class="book-condition">${condition}</div>
+                                    <div class="book-price">${price}</div>
+                                    <button class="btn">Add to Cart</button>
+                                </div>
+                            `;
+                            bookGrid.appendChild(bookCard);
+                        }
+                    });
+                })
+                .catch(error => console.error('Error fetching book data:', error));
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchAndDisplayBooks); // Load books on page load
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div>Novelo<span>pedia</span></div>
+                </div>
+                <nav class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="#">Browse</a>
+                    <a href="#">Sell Books</a>
+                    <a href="#">About</a>
+                    <a href="#">Contact</a>
+                </nav>
+                <div class="user-actions">
+                    <a href="#" class="btn">Sign In</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="Search by title, author, genre...">
+            <button>Search</button>
+        </div>
+    </div>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover Stories That Last Forever</h1>
+            <p>Find pre-loved novels at affordable prices and give books a second chance to be loved.</p>
+            <a href="#" class="btn">Browse Collection</a>
+        </div>
+    </section>
+    
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Books</h2>
+            </div>
+            <div class="book-grid">
+                </div>
+        </div>
+    </section>
+    
+    <section class="categories-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Browse by Genre</h2>
+            </div>
+            <div class="category-cards">
+                <div class="category-card">Fiction</div>
+                <div class="category-card">Mystery</div>
+                <div class="category-card">Romance</div>
+                <div class="category-card">Sci-Fi</div>
+                <div class="category-card">Fantasy</div>
+                <div class="category-card">Classics</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How It Works</h2>
+            </div>
+            
+            <div class="contact-icon">
+                <a href="javascript:void(0);" onclick="makePhoneCall('+919987151663');" class="contact-button">📞</a>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Search for Your Book</h3>
+                    <p>Use our search to find the book you want from our extensive collection.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Contact Us</h3>
+                    <p>Get in touch with us to confirm availability and place your order.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Collect at Railway Station</h3>
+                    <p>Pick up your book from the nearest railway station at your convenience.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Enjoy Your Book</h3>
+                    <p>Dive into your new story and enjoy the experience of a pre-loved book.</p>
+                </div>
+            </div>
+            
+            <div class="disclaimer">
+                <p>⚠️ Disclaimer: Our services are available within Mumbai region only.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Readers Say</h2>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">Found a rare edition of my favorite childhood book that I thought I'd never see again. The condition was exactly as described!</p>
+                        <div class="testimonial-author">- Sarah J.</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">As a student on a budget, Novelopedia has been a lifesaver. I can get quality books without breaking the bank.</p>
+                        <div class="testimonial-author">- Michael T.</div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">I love the railway station pickup. It's so convenient for my daily commute, and the books are always in great condition.</p>
+                        <div class="testimonial-author">- Emma R.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Have Books to Sell?</h2>
+                <p>Turn your bookshelf into cash! List your pre-loved novels and reach thousands of readers in Mumbai.</p>
+                <a href="#" class="btn">Start Selling Now</a>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Novelopedia</h3>
+                    <p>Your marketplace for second-hand novels with character and stories to tell.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link">F</a>
+                        <a href="#" class="social-link">T</a>
+                        <a href="#" class="social-link">I</a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Browse Books</a></li>
+                        <li><a href="#">Sell Books</a></li>
+                        <li><a href="#">My Account</a></li>
+                        <li><a href="#">Cart</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="javascript:void(0);" onclick="makePhoneCall('+919987151663');">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to get updates on new arrivals and special offers.</p>
+                    <form>
+                        <div class="search-bar">
+                            <input type="email" placeholder="Your email address">
+                            <button>Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Novelopedia. All rights reserved. | Services available in Mumbai region only.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
 
